@@ -1,6 +1,7 @@
 {
   buildNpmPackage,
   fetchFromGitHub,
+  nodePackages,
 }:
 
 buildNpmPackage {
@@ -10,11 +11,16 @@ buildNpmPackage {
   src = fetchFromGitHub {
     owner = "netlooker";
     repo = "prompter";
-    rev = "24167cf949ff5d4cb9437d3984b1a21464931116";
-    hash = "sha256-7xq78cBonsrZL/sTFVvmkh639jeMUJZ9YIowAi7L6Lg=";
+    rev = "a6ed59b9a2c875d5eab29447dcf11a656b53e12a";
+    hash = "sha256-y6e9Ibg2HnTjtlOQvfSxcCv8Zl1C41vZrKS6cCQLSlY=";
   };
 
-  npmDepsHash = "sha256-pZ+AMxcuZe7Ic++52rhidzMnA4w+aOFB9guwUrjtDNE=";
+  # Upstream lock file is incorrect (to fix: npm i --package-lock-only)
+  postPatch = ''
+    cp ${./package-lock.json} package-lock.json
+  '';
+
+  npmDepsHash = "sha256-p5XmtgMENGeuSLDuOFmDrrjmFTpNGU5F+ABX2kEyGXA=";
 
   installPhase = ''
     runHook preInstall
