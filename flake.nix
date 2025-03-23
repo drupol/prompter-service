@@ -48,7 +48,7 @@
                 let
                   opener = if pkgs.stdenv.isDarwin then "open" else lib.getExe' pkgs.xdg-utils "xdg-open";
                 in
-                "${opener} http://127.0.0.1:${builtins.toString pc.config.services.http-server.port}";
+                "${opener} http://${pc.config.services.http-server.host}:${builtins.toString pc.config.services.http-server.port}";
             };
           };
         };
