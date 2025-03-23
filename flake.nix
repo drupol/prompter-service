@@ -34,10 +34,10 @@
           process-compose."prompter-service" = pc: {
             imports = [
               inputs.services-flake.processComposeModules.default
-              ./services/caddy.nix
+              ./services/http-server.nix
             ];
 
-            services.caddy = {
+            services.http-server = {
               enable = true;
               port = 1234;
               root = "${config.packages.prompter}/share/prompter";
@@ -48,7 +48,7 @@
                 let
                   opener = if pkgs.stdenv.isDarwin then "open" else lib.getExe' pkgs.xdg-utils "xdg-open";
                 in
-                "${opener} http://127.0.0.1:${builtins.toString pc.config.services.caddy.port}";
+                "${opener} http://127.0.0.1:${builtins.toString pc.config.services.http-server.port}";
             };
           };
         };
